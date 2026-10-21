@@ -1,0 +1,39 @@
+# Ambientes e Segredos
+.env
+*.env.local
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+ENV/
+
+# Node & Frontend
+node_modules/
+dist/
+.vite/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Banco de dados e Docker
+postgres_data/
+comandas.db
+*.db
+backups/
+
+
+# IDEs e Sistema
+.vscode/
+.idea/
+*.swp
+*.swo
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Cobertura e Testes
+.pytest_cache/
+.coverage
+htmlcov/
