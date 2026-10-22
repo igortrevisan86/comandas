@@ -1,0 +1,56 @@
+*** Begin Patch
+*** Add File: .github/workflows/deploy.yml
++name: Deploy Frontend to GitHub Pages
++
++on:
++  push:
++    branches:
++      # Trigger on pushes to the main branch (or any branch you develop on)
++      - main
++      - master
++  workflow_dispatch: # Allows manual triggers
++
++jobs:
++  build-and-deploy:
++    runs-on: ubuntu-latest
++    defaults:
++      run:
++        working-directory: ./frontend
++
++    steps:
++      # 1️⃣ Checkout the repository
++      - name: Checkout repository
++        uses: actions/checkout@v4
++
++      # 2️⃣ Setup Node (use the version defined in package.json "engines" if present)
++      - name: Setup Node.js
++        uses: actions/setup-node@v4
++        with:
++          node-version: "20"
++          cache: "npm"
++
++      # 3️⃣ Install dependencies
++      - name: Install dependencies
++        run: npm ci
++
++      # 4️⃣ Build the Vite app (produces the static site in ./dist)
++      - name: Build project
++        run: npm run build
++
++      # 5️⃣ Deploy the generated static files to the `gh-pages` branch
++      - name: Deploy to GitHub Pages
++        uses: peaceiris/actions-gh-pages@v4
++        with:
++          github_token: ${{ secrets.GITHUB_TOKEN }}
++          publish_dir: ./dist
++          # Optional: keep a clean history on the gh‑pages branch
++          force_orphan: true
++          # Deploy to the branch named `gh-pages`
++          publish_branch: gh-pages
++
++      # 6️⃣ (Optional) Invalidate the Cloudflare cache or perform other post‑deploy steps here
++      # - name: Purge CDN cache
++      #   run: echo "Add your CDN purge commands if needed"
++
++*** End Patch
+*** End Patch
